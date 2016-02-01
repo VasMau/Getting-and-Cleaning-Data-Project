@@ -51,4 +51,4 @@ Transformation details
 3. Uses descriptive activity names to name the activities in the data set
 4. Appropriately labels the data set with descriptive activity names.
 5. Creates a second, independent tidy data set with the average of each variable for each activity and each subject.
-6. Code "run_analysis.R" processes all data sets, merges the resulting files, removes redundant data from memoroy and creates the final result 
+6. Code "run_analysis.R" processes all data sets, merges the resulting files, removes redundant data from memoroy and creates the final result "tidy_data.txt"
