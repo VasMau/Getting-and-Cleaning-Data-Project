@@ -1,11 +1,11 @@
 # Getting-and-Cleaning-Data-Project
-final assignment fro cleaning data course
+Final assignment for "Cleaning Data" course.
 Instructions
 The purpose of this project is to demonstrate your ability to collect, work with, and clean a data set.
-Review criterialess 
-The submitted data set is tidy.
-The Github repo contains the required scripts.
-GitHub contains a code book that modifies and updates the available codebooks with the data to indicate all the variables and summaries calculated, along with units, and any other relevant information.
+Review criteria. 
+The submitted data set is tidy. (done)
+The Github repo contains the required scripts. (done)
+GitHub contains a code book that modifies and updates the available codebooks with the data to indicate all the variables and summaries calculated, along with units, and any other relevant information. (done)
 The README that explains the analysis files is clear and understandable.
 The work submitted for this project is the work of the student who submitted it.
 Getting and Cleaning Data Course Projectless 
