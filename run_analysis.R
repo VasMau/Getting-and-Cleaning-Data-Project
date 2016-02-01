@@ -66,4 +66,4 @@ library(dplyr) # for %>% and summarise_each
 tidydata <- Subsetted_data_frame %>% group_by(Subject,Activity) %>% 
             summarise_each(funs(mean))
 
-write.table(tidydata, "tidydata.txt", row.names=FALSE)
+write.table(tidydata, "tidy_data.txt", row.names=FALSE)
