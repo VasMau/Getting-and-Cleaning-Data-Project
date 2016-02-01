@@ -1,72 +1,30 @@
 # Getting-and-Cleaning-Data-Project
 final assignment fro cleaning data course
+Instructions
+The purpose of this project is to demonstrate your ability to collect, work with, and clean a data set.
+Review criterialess 
+The submitted data set is tidy.
+The Github repo contains the required scripts.
+GitHub contains a code book that modifies and updates the available codebooks with the data to indicate all the variables and summaries calculated, along with units, and any other relevant information.
+The README that explains the analysis files is clear and understandable.
+The work submitted for this project is the work of the student who submitted it.
+Getting and Cleaning Data Course Projectless 
+The purpose of this project is to demonstrate your ability to collect, work with, and clean a data set. The goal is to prepare tidy data that can be used for later analysis. You will be graded by your peers on a series of yes/no questions related to the project. You will be required to submit: 1) a tidy data set as described below, 2) a link to a Github repository with your script for performing the analysis, and 3) a code book that describes the variables, the data, and any transformations or work that you performed to clean up the data called CodeBook.md. You should also include a README.md in the repo with your scripts. This repo explains how all of the scripts work and how they are connected.
 
-# load dplyr library
-library(plyr) # for mapvalues
+One of the most exciting areas in all of data science right now is wearable computing - see for example this article . Companies like Fitbit, Nike, and Jawbone Up are racing to develop the most advanced algorithms to attract new users. The data linked to from the course website represent data collected from the accelerometers from the Samsung Galaxy S smartphone. A full description is available at the site where the data was obtained:
 
-# Part 1. Merges the training and the test sets to create one data set.
-# Part 3. Uses descriptive activity names to name the activities in the data set.
-# Part 4. Appropriately labels the data set with descriptive variable names. 
+http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
 
-#reading basic data
-features <- read.csv("UCI HAR Dataset/features.txt",sep=" ", header = FALSE,
-                     colClasses = c("numeric","character"))
-activity_labels <- read.csv("UCI HAR Dataset/activity_labels.txt",sep="",
-                            header = FALSE,colClasses = c("numeric","character"))
+Here are the data for the project:
 
-# train data
-subject_train <- read.csv("UCI HAR Dataset/train/subject_train.txt",
-                          header = FALSE,colClasses = "numeric",col.names="Subject")
-y_train <- read.csv("UCI HAR Dataset/train/y_train.txt", header = FALSE,
-                    colClasses = "numeric")
-x_train <- read.csv("UCI HAR Dataset/train/X_train.txt",sep="", header = FALSE,
-                    colClasses = "numeric",col.names=features$V2,check.names = FALSE)
+https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
-activity_train <- as.data.frame(mapvalues(y_train$V1, from = activity_labels$V1,
-                                          to = activity_labels$V2))
-names(activity_train) <- "Activity"
+You should create one R script called run_analysis.R that does the following.
 
+Merges the training and the test sets to create one data set.
+Extracts only the measurements on the mean and standard deviation for each measurement.
+Uses descriptive activity names to name the activities in the data set
+Appropriately labels the data set with descriptive variable names.
+From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+Good luck!
 
-
-# test data
-subject_test <- read.csv("UCI HAR Dataset/test/subject_test.txt",
-                         header = FALSE,colClasses = "numeric",col.names="Subject")
-y_test <- read.csv("UCI HAR Dataset/test/y_test.txt", header = FALSE,
-                   colClasses = "numeric")
-x_test <- read.csv("UCI HAR Dataset/test/X_test.txt",sep="", header = FALSE,
-                   colClasses = "numeric",col.names=features$V2,check.names = FALSE)
-
-activity_test <- as.data.frame(mapvalues(y_test$V1, from = activity_labels$V1,
-                                         to = activity_labels$V2))
-names(activity_test) <- "Activity"
-
-
-# full dataframe
-data_train <- cbind(x_train,subject_train,activity_train)
-data_test <- cbind(x_test,subject_test,activity_test)
-data <- rbind(data_train, data_test)
-
-# Cleaning memory
-rm(features, activity_labels, subject_train, y_train, x_train, activity_train,
-   subject_test, y_test, x_test, activity_test, data_train, data_test)
-
-
-# Part 2. Keeps measurements with mean and standard deviation. 
-
-cols2match <- grep("(mean|std)",names(data))
-
-# Excluded gravityMean, tBodyAccMean, tBodyAccJerkMean, tBodyGyroMean,
-# tBodyGyroJerkMean.
-# Subsetting data frame.  Last columns become first
-Subsetted_data_frame <- data[ ,c(562, 563, cols2match)]
-
-# Part 5  From the data set in step 4, creates a second, independent tidy data set
-# with the average of each variable for each activity and each subject.
-
-library(dplyr) # for %>% and summarise_each
-
-               
-tidydata <- Subsetted_data_frame %>% group_by(Subject,Activity) %>% 
-            summarise_each(funs(mean))
-
-write.table(tidydata, "tidydata.txt", row.names=FALSE)
